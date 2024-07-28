@@ -57,7 +57,7 @@ def exercise_pt1(df: pd.DataFrame):
     # conf_matrix = confusion_matrix(y_test, y_pred)
     # report = classification_report(y_test, y_pred)
 
-    # TODO : implement into LogisticRegressionCV (error occurred)
+    # implement into LogisticRegressionCV (error occurred)
     log_model = LogisticRegressionCV().fit(scaled_X_train, y_train)
 
     # print(log_model.Cs_)

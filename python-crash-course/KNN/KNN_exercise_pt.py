@@ -13,16 +13,16 @@ def knn_model_grid(df: pd.DataFrame):
     # y = df.iloc[:, -1]
 
     # Split into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.3, random_state=101
+    )
 
     # Create a pipeline
-    pipeline = Pipeline([
-        ('knn', KNeighborsClassifier())
-    ])
+    pipeline = Pipeline([("knn", KNeighborsClassifier())])
 
     # Create space of candidate values
     search_space = {
-        'knn__n_neighbors': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        "knn__n_neighbors": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     }
 
     # Create grid search
@@ -32,8 +32,8 @@ def knn_model_grid(df: pd.DataFrame):
     best_model = clf.fit(X_train, y_train)
 
     # View best model
-    best_k = best_model.best_estimator_.get_params()['knn__n_neighbors']
-    print(f'Best number of neighbors: {best_k}')
+    best_k = best_model.best_estimator_.get_params()["knn__n_neighbors"]
+    print(f"Best number of neighbors: {best_k}")
 
     # Predict the responses for test dataset
     y_pred = best_model.predict(X_test)
@@ -41,6 +41,6 @@ def knn_model_grid(df: pd.DataFrame):
     return y_pred
 
 
-if __name__ == '__main__':
-    df = pd.read_csv('../Data/sonar.all-data.csv')
+if __name__ == "__main__":
+    df = pd.read_csv("../Data/sonar.all-data.csv")
     print(df.head())

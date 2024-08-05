@@ -15,18 +15,20 @@ def random_forest_pt1_ex(df: pd.DataFrame):
 
     print(df.describe())
 
-    feat_uni = df.describe().T.reset_index().sort_values('unique')
+    feat_uni = df.describe().T.reset_index().sort_values("unique")
     print(feat_uni)
     # sns.barplot(data=feat_uni, x='index', y='unique')
     # plt.xticks(rotation=90)
     # plt.show()
 
-    X = df.drop('class', axis=1)
+    X = df.drop("class", axis=1)
     X = pd.get_dummies(X, drop_first=True)
 
-    y = df['class']
+    y = df["class"]
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=101)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.15, random_state=101
+    )
 
     model = AdaBoostClassifier(n_estimators=1)
     model.fit(X_train, y_train)
@@ -39,6 +41,7 @@ def random_forest_pt1_ex(df: pd.DataFrame):
 
     # sns.countplot(data=df, x='odor', hue='class')
     # plt.show()
+    # len(X.columns)
 
     error_rates = []
 
@@ -55,16 +58,18 @@ def random_forest_pt1_ex(df: pd.DataFrame):
     plt.plot(range(1, 96), error_rates)
     plt.show()
 
-    feat = pd.DataFrame(index=X.columns, data = model.feature_importances_, columns=['Importance'])
-    imp_feats = feat[feat['Importance'] > 0]
-    sns.barplot(data=imp_feats.sort_values('Importance'), x=imp_feats.index, y='Importance')
+    feat = pd.DataFrame(
+        index=X.columns, data=model.feature_importances_, columns=["Importance"]
+    )
+    imp_feats = feat[feat["Importance"] > 0]
+    sns.barplot(
+        data=imp_feats.sort_values("Importance"), x=imp_feats.index, y="Importance"
+    )
     plt.xticks(rotation=90)
-
 
     pass
 
 
-
-if __name__ == '__main__':
-    df = pd.read_csv('../Data/mushrooms.csv')
+if __name__ == "__main__":
+    df = pd.read_csv("../Data/mushrooms.csv")
     random_forest_pt1_ex(df)
